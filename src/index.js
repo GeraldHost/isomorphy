@@ -5,5 +5,7 @@ babel({
   presets: ["@babel/preset-env", "@babel/preset-react"],
 });
 
-import "./server";
+import { startServer } from "../isomorphy";
+
+startServer(".");
 

@@ -1,13 +1,16 @@
+import path from "path";
 import React from "react";
 import { StaticRouter } from "react-router";
 import ReactDOMServer from "react-dom/server";
 
-export const resolveApp = () => {
-  return require("./app.js").default;
+export const resolveApp = (dir) => {
+  const _path = path.resolve(dir, "src", "app.js");
+  console.log({_path});
+  return require(_path).default;  
 };
 
-export const render = (url) => {
-  const App = resolveApp();
+export const render = (dir, url) => {
+  const App = resolveApp(dir);
   const app = (
     <StaticRouter location={url}>
       <App />

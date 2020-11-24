@@ -1,4 +1,5 @@
-import ReactRouter from "react-router-dom";
+import React from "react";
+import * as ReactRouter from "react-router-dom";
 
 export const Route = (props) => {
   const { path } = props;
