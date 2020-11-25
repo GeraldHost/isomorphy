@@ -1,12 +1,12 @@
-import path from "path";
+import { join } from "path";
 import React from "react";
 import { StaticRouter } from "react-router";
 import ReactDOMServer from "react-dom/server";
 
+const SERVER_DIR = "..";
+
 export const resolveApp = (dir) => {
-  const _path = path.resolve(dir, "src", "app.js");
-  console.log({_path});
-  return require(_path).default;  
+  return require(join(SERVER_DIR, dir, "src", "app.js")).default; 
 };
 
 export const render = (dir, url) => {
