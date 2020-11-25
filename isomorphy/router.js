@@ -1,9 +1,13 @@
 import React from "react";
 import * as ReactRouter from "react-router-dom";
+import { addRoute } from "./store";
+import { isServer } from "./utils";
 
 export const Route = (props) => {
-  const { path } = props;
-  // register path with the app
+  if (isServer()) {
+    const { path } = props;
+    addRoute(path);
+  }
   return <ReactRouter.Route {...props} />;
 };
 
