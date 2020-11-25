@@ -2,20 +2,27 @@ import Koa from "koa";
 import Router from "koa-router";
 
 import { render } from "./render";
+import { prepare } from "./app";
+import { createRouter, startRouter } from "./router";
 
 const PORT = process.env.PORT || 4000;
 
-export const startServer = (dir) => {
-	const app = new Koa();
-	const router = new Router();
+export const startServer = async (dir, routes) => {
+  const app = new Koa();
+  const serverRouter = new Router();
 
-	router.get("/", (ctx) => {
-	  ctx.body = render(dir, ctx.request.url);
-	});
+  const clientRouter = createRouter(routes);
+  await prepare(dir, routes, clientRouter);
 
-	app.use(router.routes()).use(router.allowedMethods());
+  serverRouter.get(/./, async (ctx, next) => {
+    await startRouter(clientRouter, ctx.request.url);
+    ctx.body = render(dir, clientRouter);
+    clientRouter.stop();
+  });
 
-	app.listen(PORT, () => {
-	  console.log(`😎 Server is listening on port ${PORT}`);
-	});
-}
+  app.use(serverRouter.routes()).use(serverRouter.allowedMethods());
+
+  app.listen(PORT, () => {
+    console.log(`😎 Server is listening on port ${PORT}`);
+  });
+};

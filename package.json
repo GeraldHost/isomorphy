@@ -1,26 +1,26 @@
 {
   "name": "isomorphy-project",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "babel src -d build/src && babel isomorphy -d build/isomorphy"
   },
   "dependencies": {
     "@babel/cli": "^7.12.8",
+    "@babel/runtime": "^7.12.5",
     "knex": "^0.21.12",
     "koa": "^2.13.0",
     "koa-router": "^10.0.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
+    "react-router5": "^8.0.1",
+    "router5": "^8.0.1",
+    "router5-plugin-browser": "^8.0.1",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/plugin-transform-async-to-generator": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-react": "^7.12.7",
     "@babel/register": "^7.12.1",

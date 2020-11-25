@@ -1,20 +1,14 @@
-import { join } from "path";
 import React from "react";
-import { StaticRouter } from "react-router";
 import ReactDOMServer from "react-dom/server";
+import { RouterProvider } from "react-router5";
+import { resolveApp } from "./app";
 
-const SERVER_DIR = "..";
-
-export const resolveApp = (dir) => {
-  return require(join(SERVER_DIR, dir, "src", "app.js")).default; 
-};
-
-export const render = (dir, url) => {
+export const render = (dir, router) => {
   const App = resolveApp(dir);
   const app = (
-    <StaticRouter location={url}>
+    <RouterProvider router={router}>
       <App />
-    </StaticRouter>
+    </RouterProvider>
   );
 
   // TODO: convert routes to array

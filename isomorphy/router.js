@@ -1,14 +1,21 @@
-import React from "react";
-import * as ReactRouter from "react-router-dom";
-import { addRoute } from "./store";
-import { isServer } from "./utils";
+import createRouterFive from "router5";
+import browserPlugin from "router5-plugin-browser";
 
-export const Route = (props) => {
-  if (isServer()) {
-    const { path } = props;
-    addRoute(path);
-  }
-  return <ReactRouter.Route {...props} />;
+export { useRoute } from 'react-router5'
+
+export const createRouter = (routes) => {
+  const router = createRouterFive(routes);
+  router.usePlugin(browserPlugin());
+  return router;
 };
 
-export const Switch = ReactRouter.Switch;
+export const startRouter = (router, initialRoute) => {
+  return new Promise((resolve, reject) => {
+    router.start(initialRoute, (error, state) => {
+      if (error) {
+        reject(error);
+      }
+      resolve(state);
+    });
+  });
+};
