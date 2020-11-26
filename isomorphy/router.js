@@ -1,7 +1,10 @@
+import React from "react";
 import createRouterFive from "router5";
 import browserPlugin from "router5-plugin-browser";
 
-export { useRoute } from 'react-router5'
+import { useRoute as useRoute5 } from "react-router5";
+
+export const useRoute = useRoute5;
 
 export const createRouter = (routes) => {
   const router = createRouterFive(routes);
@@ -18,4 +21,19 @@ export const startRouter = (router, initialRoute) => {
       resolve(state);
     });
   });
+};
+
+export const Link = ({ to, onClick, ...props }) => {
+  const { router } = useRoute5();
+
+  const handleClick = (event, ...args) => {
+    if (onClick) {
+      onClick(event, ...args);
+      return;
+    }
+    event.preventDefault();
+    router.navigate(to);
+  };
+
+  return <a {...props} href={to} onClick={handleClick} />;
 };
