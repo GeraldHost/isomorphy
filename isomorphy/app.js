@@ -1,6 +1,6 @@
 import { join } from "path";
 import { render } from "./render";
-import { startRouter } from "./router";
+import { startRouter } from "./client/router";
 
 const SERVER_DIR = "..";
 

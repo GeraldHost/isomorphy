@@ -1,4 +1,4 @@
-import React from "react";
+import { createElement } from "react";
 import createRouterFive from "router5";
 import browserPlugin from "router5-plugin-browser";
 
@@ -24,9 +24,10 @@ export const startRouter = (router, initialRoute) => {
 };
 
 export const Link = ({ to, onClick, ...props }) => {
-  const { router } = useRoute5();
+  const { router } = useRoute();
 
   const handleClick = (event, ...args) => {
+    debugger;
     if (onClick) {
       onClick(event, ...args);
       return;
@@ -35,5 +36,5 @@ export const Link = ({ to, onClick, ...props }) => {
     router.navigate(to);
   };
 
-  return <a {...props} href={to} onClick={handleClick} />;
+  return createElement("a", { ...props, href: `/${to}`, onClick: handleClick });
 };

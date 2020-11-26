@@ -14,5 +14,6 @@ export const render = (dir, router) => {
   // TODO: convert routes to array
   // for each route render the page and save the output
   // for now lets just get it working with one route
-  return ReactDOMServer.renderToString(app);
+  const html = ReactDOMServer.renderToString(app);
+  return { html };
 };
