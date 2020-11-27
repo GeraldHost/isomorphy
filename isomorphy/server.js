@@ -1,7 +1,10 @@
 import Koa from "koa";
 import path from "path";
-import Router from "koa-router";
+import cors from "@koa/cors";
 import serve from "koa-static";
+import logger from "koa-logger";
+import Router from "koa-router";
+import bodyParser from "koa-bodyparser";
 
 import { render } from "./render";
 import { prepare } from "./app";
@@ -43,6 +46,10 @@ export const startServer = async (dir, routes) => {
     ctx.body = markup;
     clientRouter.stop();
   });
+
+  app.use(logger());
+  app.use(bodyParser());
+  app.use(cors());
 
   app.use(serve(path.resolve(BUILD_DIR, "client")));
   app.use(serverRouter.routes()).use(serverRouter.allowedMethods());

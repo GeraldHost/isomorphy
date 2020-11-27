@@ -4,17 +4,22 @@ const dummyHandler = (name) => (ctx) => {
   ctx.body = name;
 };
 
-const createEndpoints = (router, name) => {
-  router.get(`/entity/${name}`, dummyHandler(name));
+/* serveronly:start */
+const createEndpoints = (name, config) => {
+  const validator = require("koa-yup-validator").default;
+  const router = require("../server").serverRouter;
+  router
+    .get(`/entity/${name}`, dummyHandler(name))
+    .post(`/entity/${name}`, validator(config.schema), dummyHandler(name));
 };
+/* serveronly:end */
 
 const createTable = (name, config) => {};
 
-export const useEntity = (name) => {
+export const useEntity = (name, config) => {
   /* serveronly:start */
   if (isServer()) {
-    const serverRouter = require("../server").serverRouter;
-    createEndpoints(serverRouter, name);
+    createEndpoints(name, config);
     createTable(name, {});
   }
   /* serveronly:end */
