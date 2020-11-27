@@ -1,5 +1,6 @@
 import React from "react";
-import { useRoute, Link } from "../isomorphy/client/router";
+import { useRoute, Link, Route } from "../isomorphy/client/router";
+import { useEntity } from "../isomorphy/client/entity";
 
 export const routes = [
   { name: "home", path: "/" },
@@ -7,27 +8,19 @@ export const routes = [
 ];
 
 export const App = () => {
-  const { route } = useRoute();
-  console.log(route.name);
-  if (route.name === "home") {
-    console.log("home has been called");
-    return (
-      <div id="APP">
+  const user = useEntity("users");
+  return (
+    <>
+      <Route name="home">
         <h1>Home</h1>
-        <Link to="foo">Go to foo</Link>
-      </div>
-    );
-  } else if (route.name === "foo") {
-    console.log("foo has been called");
-    return (
-      <div id="APP">
+        <Link to="foo">foo</Link>
+      </Route>
+      <Route name="foo">
         <h1>Foo</h1>
-        <Link to="home">Go to home</Link>
-      </div>
-    );
-  } else {
-    return "404";
-  }
+        <Link to="home">home</Link>
+      </Route>
+    </>
+  );
 };
 
 export default App;

@@ -10,6 +10,9 @@ import { createRouter, startRouter } from "./client/router";
 const PORT = process.env.PORT || 4000;
 const BUILD_DIR = "build";
 
+export const app = new Koa();
+export const serverRouter = new Router();
+
 const generateHtml = (app, clientBundlePath) => {
   return `
     <!doctype html>
@@ -30,13 +33,10 @@ const generateHtml = (app, clientBundlePath) => {
 };
 
 export const startServer = async (dir, routes) => {
-  const app = new Koa();
-  const serverRouter = new Router();
-
   const clientRouter = createRouter(routes);
   await prepare(dir, routes, clientRouter);
 
-  serverRouter.get(/([^client].*)/, async (ctx) => {
+  serverRouter.get(/./, async (ctx) => {
     await startRouter(clientRouter, ctx.request.url);
     const { html } = render(dir, clientRouter);
     const markup = generateHtml(html, "bundle.js");

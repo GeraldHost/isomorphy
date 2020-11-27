@@ -7,7 +7,7 @@ import { useRoute as useRoute5 } from "react-router5";
 export const useRoute = useRoute5;
 
 export const createRouter = (routes) => {
-  const router = createRouterFive(routes);
+  const router = createRouterFive(routes, { allowNotFound: true });
   router.usePlugin(browserPlugin());
   return router;
 };
@@ -21,6 +21,14 @@ export const startRouter = (router, initialRoute) => {
       resolve(state);
     });
   });
+};
+
+export const Route = ({ name, children }) => {
+  const { route } = useRoute();
+  if (route.name !== name) {
+    return null;
+  }
+  return children;
 };
 
 export const Link = ({ to, onClick, ...props }) => {
