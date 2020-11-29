@@ -10,9 +10,9 @@ export const routes = [
 ];
 
 const userSchema = shape({
-  id: schema().number().required(),
-  email: schema().string().required(),
-  password: schema().string().min(8).required(),
+  id: schema({ required: true }).number(),
+  email: schema({ required: true }).string(),
+  password: schema({ required: true }).string().min(8),
 });
 
 export const App = () => {
