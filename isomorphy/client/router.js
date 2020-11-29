@@ -35,7 +35,6 @@ export const Link = ({ to, onClick, ...props }) => {
   const { router } = useRoute();
 
   const handleClick = (event, ...args) => {
-    debugger;
     if (onClick) {
       onClick(event, ...args);
       return;
