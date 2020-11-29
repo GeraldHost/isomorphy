@@ -1,5 +1,6 @@
 import Koa from "koa";
 import path from "path";
+import get from "lodash/get";
 import cors from "@koa/cors";
 import serve from "koa-static";
 import logger from "koa-logger";
@@ -57,4 +58,14 @@ export const startServer = async (dir, routes) => {
   app.listen(PORT, () => {
     console.log(`😎 Server is listening on port ${PORT}`);
   });
+};
+
+export const validator = (schema, path = "body") => (ctx, next) => {
+  try {
+    schema.validate(get(ctx.request, path));
+    next();
+  } catch (error) {
+    ctx.status = 400;
+    ctx.body = { error: error.message };
+  }
 };

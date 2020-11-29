@@ -6,8 +6,7 @@ const dummyHandler = (name) => (ctx) => {
 
 /* serveronly:start */
 const createEndpoints = (name, config) => {
-  const validator = require("koa-yup-validator").default;
-  const router = require("../server").serverRouter;
+  const { serverRouter: router, validator } = require("../server");
   router
     .get(`/entity/${name}`, dummyHandler(name))
     .post(`/entity/${name}`, validator(config.schema), dummyHandler(name));

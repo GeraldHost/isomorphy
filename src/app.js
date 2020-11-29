@@ -1,6 +1,7 @@
 import React from "react";
 import * as Yup from "yup";
-import { useRoute, Link, Route } from "../isomorphy/client/router";
+import { Link, Route } from "../isomorphy/client/router";
+import { shape, schema } from "../isomorphy/client/schema";
 import { useEntity } from "../isomorphy/client/entity";
 
 export const routes = [
@@ -8,14 +9,14 @@ export const routes = [
   { name: "foo", path: "/foo" },
 ];
 
-const UserSchema = Yup.object({
-  id: Yup.number().required(), // TODO: this needs to be auto increment
-  email: Yup.string().required(),
-  password: Yup.string().min(8).required(),
+const userSchema = shape({
+  id: schema().number().required(),
+  email: schema().string().required(),
+  password: schema().string().min(8).required(),
 });
 
 export const App = () => {
-  const user = useEntity("users", { schema: UserSchema });
+  const user = useEntity("users", { schema: userSchema });
   return (
     <>
       <Route name="home">
