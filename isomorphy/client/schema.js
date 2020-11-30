@@ -36,9 +36,9 @@ const requiredTest = (name, value) => {
   }
 };
 
-const schema = (initialTests, type) => ({ required, defaultValue, auto }) => {
+const schema = (initialTests, type) => ({ required, defaultValue, opts }) => {
   const tests = initialTests;
-  const describe = { type, null: required, defaultValue, auto };
+  const describe = { type, null: required, defaultValue, opts };
 
   if (required) {
     tests.push({ fn: requiredTest });
