@@ -38,7 +38,7 @@ const requiredTest = (name, value) => {
 
 const schema = (initialTests, type) => ({ required, defaultValue, opts }) => {
   const tests = initialTests;
-  const describe = { type, null: required, defaultValue, opts };
+  const describe = { type, required, defaultValue, opts };
 
   if (required) {
     tests.push({ fn: requiredTest });
@@ -55,7 +55,7 @@ const schema = (initialTests, type) => ({ required, defaultValue, opts }) => {
     return methods();
   };
 
-  return methods();
+  return { describe, ...methods() };
 };
 
 export const string = schema([{ fn: typeOf("string") }], "string");
