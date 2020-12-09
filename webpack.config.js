@@ -24,7 +24,7 @@ module.exports = {
         exclude: /(node_modules)/,
         use: [
           {
-            loader: "webpack-strip-block",
+            loader: "./config/ServerOnlyLoader",
             options: {
               start: "serveronly:start",
               end: "serveronly:end",
