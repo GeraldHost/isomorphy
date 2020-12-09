@@ -45,7 +45,7 @@ describe("@shape", () => {
     }).toThrow();
   });
 
-  it("@method description", () => {
+  it("@method describe", () => {
     const schema = shape({
       name: string({ required: true, defaultValue: "default" }),
     });
@@ -57,6 +57,6 @@ describe("@shape", () => {
         type: "string",
       },
     };
-    expect(schema.description()).toStrictEqual(expected);
+    expect(schema.describe()).toStrictEqual(expected);
   });
 });

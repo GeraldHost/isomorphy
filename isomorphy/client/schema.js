@@ -72,7 +72,7 @@ export const shape = (schemaObject) => {
     });
   };
 
-  const description = () =>
+  const describe = () =>
     Object.keys(schemaObject).reduce(
       (acc, key) => ({ ...acc, [key]: schemaObject[key].describe }),
       {}
@@ -80,6 +80,6 @@ export const shape = (schemaObject) => {
 
   return {
     validate,
-    description,
+    describe,
   };
 };
