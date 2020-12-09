@@ -72,7 +72,14 @@ export const shape = (schemaObject) => {
     });
   };
 
+  const description = () =>
+    Object.keys(schemaObject).reduce(
+      (acc, key) => ({ ...acc, [key]: schemaObject[key].describe }),
+      {}
+    );
+
   return {
     validate,
+    description,
   };
 };

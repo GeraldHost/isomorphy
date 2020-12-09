@@ -34,6 +34,7 @@ describe("@shape", () => {
       schema.validate(input);
     }).not.toThrow();
   });
+
   it("@method validate: invalid", () => {
     const schema = shape({
       name: string({ required: true }),
@@ -42,5 +43,20 @@ describe("@shape", () => {
     expect(() => {
       schema.validate(input);
     }).toThrow();
+  });
+
+  it("@method description", () => {
+    const schema = shape({
+      name: string({ required: true, defaultValue: "default" }),
+    });
+    const expected = {
+      name: {
+        defaultValue: "default",
+        opts: undefined,
+        required: true,
+        type: "string",
+      },
+    };
+    expect(schema.description()).toStrictEqual(expected);
   });
 });
