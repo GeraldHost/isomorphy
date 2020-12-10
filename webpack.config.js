@@ -14,21 +14,14 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        use: {
-          loader: "babel-loader",
-          options: { babelrc: true },
-        },
-      },
-      {
-        test: /\.js$/,
-        exclude: /(node_modules)/,
+        exclude: [/\.test.js$/],
         use: [
           {
             loader: "./config/ServerOnlyLoader",
-            options: {
-              start: "serveronly:start",
-              end: "serveronly:end",
-            },
+          },
+          {
+            loader: "babel-loader",
+            options: { babelrc: true },
           },
         ],
       },
