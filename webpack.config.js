@@ -10,6 +10,7 @@ module.exports = {
     filename: "bundle.js",
     path: outputPath,
   },
+  target: "node",
   module: {
     rules: [
       {
