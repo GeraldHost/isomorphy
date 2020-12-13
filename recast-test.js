@@ -22,19 +22,16 @@ const hasDeclerations = (body) =>
 	body.declaration && body.declaration.declarations.length > 0;
 
 const hasBodies = (body) => 
-	body.body && body.body.lenght > 0;
+	body.body && body.body.length > 0;
 
 const modify = (body) => {
 	if(hasDeclerations(body)){
-		console.log("Has declarations");
-		console.log(body.declaration.declarations[0]);
 		body.declaration.declarations = body.declaration.declarations.map(d => {
     		d.init.body = pass(d.init.body);
     		return d;
     	});
 	}
 	if(hasBodies(body)){
-		console.log("Has bodies");
 		body.body = pass(body.body);
 	}
 	return body;
@@ -50,10 +47,13 @@ const pass = (body) => {
 			return [...acc, modifiedBody];
 		}, []);
 	} else {
+		if(isServerOnlyLabel(body)) {
+			return null;
+		}
 		return modify(body);
 	}
 }
-// console.log(JSON.stringify(ast, null, 2));
+console.log(JSON.stringify(ast, null, 2));
 ast.program.body = pass(ast.program.body);
 const transformed = recast.print(ast).code;
 console.log(transformed);

@@ -2,14 +2,8 @@
 "use strict";
 
 const recast = require("recast");
-const loaderUtils = require("loader-utils");
-const jsx = require("acorn-jsx");
 
 function ServerOnlyLoader(code) {
-  console.log("---------- FILE START ----------");
-  console.log("code", code);
-  const options = loaderUtils.getOptions(this) || {};
-
   const ast = recast.parse(code);
   const remove = (body) => {
     return body.reduce((acc, body) => {
@@ -27,10 +21,7 @@ function ServerOnlyLoader(code) {
   };
 
   ast.program.body = remove(ast.program.body);
-  const transformed = recast.print(ast).code;
-  console.log("transformed", transformed);
-  console.log("---------- FILE START ----------");
-  return transformed;
+  return recast.print(ast).code;
 }
 
 module.exports = ServerOnlyLoader;
