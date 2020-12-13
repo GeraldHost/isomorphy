@@ -18,7 +18,7 @@ module.exports = {
         exclude: [/\.test.js$/],
         use: [
           {
-            loader: "./config/ServerOnlyLoader",
+            loader: "./isomorphy/tools/ServerOnlyLoader",
           },
           {
             loader: "babel-loader",
