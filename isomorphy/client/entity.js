@@ -12,7 +12,13 @@ serveronly: createEndpoints = (name, config) => {
     .post(`/entity/${name}`, validator(config.schema), dummyHandler(name));
 };
 
-const createTable = (name, config) => {};
+let createTable;
+serveronly: createTable = (name, config) => {
+  const knex = require("../knex").default;
+  knex.schema
+    .hasTable(name)
+    .then((e) => console.log(`${name} ${e ? "does" : "does not"} exist`));
+};
 
 export const useEntity = (name, config) => {
   serveronly: if (isServer()) {
