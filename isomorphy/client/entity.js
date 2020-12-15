@@ -13,17 +13,46 @@ serveronly: createEndpoints = (name, config) => {
 };
 
 let createTable;
-serveronly: createTable = (name, config) => {
+serveronly: createTable = async (name, config) => {
   const knex = require("../knex").default;
-  knex.schema
-    .hasTable(name)
-    .then((e) => console.log(`${name} ${e ? "does" : "does not"} exist`));
+  const hasTable = await knex.schema.hasTable(name);
+  const schema = config.schema.describe();
+
+  const tableTypes = {
+    number: "integer",
+    string: "string",
+  };
+
+  console.log({ schema });
+
+  if (!hasTable) {
+    // Create the table if it doesn't exist in the database
+    const createQuery = knex.schema.createTable(name, (table) => {
+      Object.keys(schema).forEach((key) => {
+        const colSchema = schema[key];
+        const col = table[tableTypes[colSchema.type]](key);
+        if (colSchema.required) {
+          col.notNullable();
+        } else {
+          col.nullable();
+        }
+        if (colSchema.defaultValue) {
+          col.default(colCcolSchema.defaultValue);
+        }
+      });
+    });
+
+    console.log(createQuery.toString());
+    return
+  }
+
+  // Check if we need to update the table
 };
 
 export const useEntity = (name, config) => {
   serveronly: if (isServer()) {
     createEndpoints(name, config);
-    createTable(name, {});
+    createTable(name, config);
   }
 
   return () => {};

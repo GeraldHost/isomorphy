@@ -52,10 +52,10 @@ const schema = (initialTests, type) => ({ required, defaultValue, opts }) => {
 
   const addTest = (fn, ...args) => () => {
     tests.push({ fn, args });
-    return methods();
+    return { describe, ...methods() };
   };
 
-  return { describe, ...methods() };
+  return { describe, ...methods() }
 };
 
 export const string = schema([{ fn: typeOf("string") }], "string");
