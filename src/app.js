@@ -1,5 +1,4 @@
 import React from "react";
-import * as Yup from "yup";
 import { Link, Route } from "../isomorphy/client/router";
 import { shape, string, number } from "../isomorphy/client/schema";
 import { useEntity } from "../isomorphy/client/entity";
@@ -14,16 +13,6 @@ const userSchema = shape({
   email: string({ required: true }),
   password: string({ required: true }).min(8),
 });
-
-// const shemaAsJson = [
-//   { field: "id", type: "number", null: false, default: null, extra: auto_increment },
-//   { field: "email", type: "string", null: false, default: null },
-//   { field: "password", type: "string", null: false, default: null },
-// ];
-
-// this.integer("id").notNullable();
-// this.string("email").notNullable();
-// this.string("password").notNullable();
 
 export const App = () => {
   const user = useEntity("users", { schema: userSchema });
