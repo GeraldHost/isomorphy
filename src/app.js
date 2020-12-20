@@ -1,21 +1,15 @@
 import React from "react";
-import { Link, Route } from "../isomorphy/client/router";
-import { shape, string, number } from "../isomorphy/client/schema";
-import { useEntity } from "../isomorphy/client/entity";
+
+import { useIsomorphy } from "../isomorphy/isomorphy";
+import { Link, Route } from "../isomorphy/router";
 
 export const routes = [
   { name: "home", path: "/" },
   { name: "foo", path: "/foo" },
 ];
 
-const userSchema = shape({
-  id: number({ required: true }),
-  email: string({ required: true }),
-  password: string({ required: true }).min(8),
-});
-
 export const App = () => {
-  const user = useEntity("users", { schema: userSchema });
+  const user = useEntity("users");
   return (
     <>
       <Route name="home">
