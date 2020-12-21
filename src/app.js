@@ -9,7 +9,7 @@ export const routes = [
 ];
 
 export const App = () => {
-  const user = useEntity("users");
+  const user = useIsomorphy("users");
   return (
     <>
       <Route name="home">

@@ -1,3 +1,4 @@
+import { join } from "path"
 import { SERVER_DIR } from "./constants";
 
 export function resolveApp(dir) {

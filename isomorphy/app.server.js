@@ -1,7 +1,6 @@
 import Koa from "koa";
 import path from "path";
 import React from "react";
-import { join } from "path";
 import cors from "@koa/cors";
 import serve from "koa-static";
 import Router from "koa-router";
@@ -11,12 +10,12 @@ import { RouterProvider } from "react-router5";
 
 import { resolveApp } from "./config";
 import { createRouter, startRouter } from "./router";
-import { SERVER_DIR, PORT, BUILD_DIR } from "./constants";
+import { PORT, BUILD_DIR } from "./constants";
 
 export const app = new Koa();
 export const serverRouter = new Router();
 
-export const render = (dir, App) => {
+export const render = (App, router) => {
   const app = (
     <RouterProvider router={router}>
       <App />
@@ -27,13 +26,11 @@ export const render = (dir, App) => {
   return { html };
 };
 
-export const prepare = async (dir, routes, router) => {
-  console.log("Preparing application");
+export const prepare = async (App, router, routes) => {
   await startRouter(router, "/");
   routes.forEach((route) => {
     router.navigate(route.name);
-    console.log("preparing", route.name);
-    render(dir, router);
+    render(App, router);
   });
   router.stop();
 };
@@ -59,16 +56,16 @@ const generateHtml = (app, clientBundlePath) => {
 
 export const runApp = async (dir) => {
   const { App, routes } = resolveApp(dir);
-  
+
   const clientRouter = createRouter(routes);
 
   global.preparing = true;
-  await prepare(dir, routes, clientRouter);
+  await prepare(App, clientRouter, routes);
   global.preparing = false;
 
   serverRouter.get(/./, async (ctx) => {
     await startRouter(clientRouter, ctx.request.url);
-    const { html } = render(dir, clientRouter);
+    const { html } = render(App, clientRouter);
     const markup = generateHtml(html, "bundle.js");
     ctx.body = markup;
     clientRouter.stop();

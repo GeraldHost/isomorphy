@@ -4,7 +4,7 @@ const outputPath = path.resolve(process.cwd(), "build", "client");
 module.exports = {
   mode: "development",
   entry: {
-    app: ["./src/client.js"],
+    app: ["./src/index.js"],
   },
   output: {
     filename: "bundle.js",
@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: [/\.test.js$/],
+        exclude: [/\.test.js$/, /\.server.js$/],
         use: [
           {
             loader: "./isomorphy/tools/ServerOnlyLoader",
@@ -28,4 +28,7 @@ module.exports = {
       },
     ],
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.client.js']
+  }
 };
