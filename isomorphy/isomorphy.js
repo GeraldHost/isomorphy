@@ -4,7 +4,7 @@ serveronly: createEndpoints = (name, config) => {
 };
 
 export const useIsomorphy = (name, config) => {
-  serveronly: {
+  serveronly: if (typeof window === "undefined") {
     createEndpoints(name, config);
   }
 

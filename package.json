@@ -2,7 +2,7 @@
   "name": "isomorphy-project",
   "scripts": {
     "test": "jest",
-    "build": "babel src -d build/server/src && babel isomorphy -d build/server/isomorphy --ignore \"**/*.client.js\"",
+    "build": "babel --config-file babel.server.config.json src -d build/server/src && babel isomorphy -d build/server/isomorphy --ignore \"**/*.client.js\"",
     "build:client": "webpack --config webpack.config.js"
   },
   "dependencies": {

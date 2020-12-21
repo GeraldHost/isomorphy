@@ -4,7 +4,7 @@ const outputPath = path.resolve(process.cwd(), "build", "client");
 module.exports = {
   mode: "development",
   entry: {
-    app: ["./src/index.js"],
+    app: ["./src/client.js"],
   },
   output: {
     filename: "bundle.js",
@@ -22,13 +22,13 @@ module.exports = {
           },
           {
             loader: "babel-loader",
-            options: { babelrc: true },
+            options: { configFile: path.resolve("./babel.client.config.json") },
           },
         ],
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.client.js']
-  }
+    extensions: [".js", ".jsx", ".client.js", ".server.js"],
+  },
 };
