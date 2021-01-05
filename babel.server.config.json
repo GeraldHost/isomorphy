@@ -1,0 +1,12 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-modules-commonjs",
+    ["module-extension-resolver", {
+      "srcExtensions": [".js", ".server.js"],
+      "dstExtension": ".js",
+      "extensionsToKeep": [".server.js"]
+    }]
+  ],
+}

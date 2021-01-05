@@ -1,4 +1,3 @@
-import { startServer } from "../isomorphy";
-import { routes } from "./app";
+import { runApp } from "../isomorphy";
 
-startServer(".", routes);
+runApp(".");

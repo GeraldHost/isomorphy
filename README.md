@@ -27,3 +27,9 @@ Run the server
 node build/src/index.js
 ```
 
+## TODO
+
+- re add schema
+- create cli methods
+- redo build process and tooling
+

@@ -15,17 +15,20 @@ module.exports = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: [/\.test.js$/],
+        exclude: [/\.test.js$/, /\.server.js$/],
         use: [
           {
             loader: "./isomorphy/tools/ServerOnlyLoader",
           },
           {
             loader: "babel-loader",
-            options: { babelrc: true },
+            options: { configFile: path.resolve("./babel.client.config.json") },
           },
         ],
       },
     ],
+  },
+  resolve: {
+    extensions: [".js", ".jsx", ".client.js", ".server.js"],
   },
 };
